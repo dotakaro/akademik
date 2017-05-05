@@ -1,0 +1,78 @@
+<odoo>
+    <data>
+        <!--Buat devenisi menu report-->
+        <report
+            id="report_session_menu"
+            string="Session"
+            model="akademik.session"
+            report_type="qweb-pdf"
+            file="akademik.session"
+            name="akademik.session_report"/>
+
+        <!--Populasikan data akademik.session-->
+        <template id="session_report">
+            <t t-call="report.html_container"> <!-- panggil report stadard odo yaitu header dan footer -->
+                <t t-foreach="docs" t-as="doc">
+                    <t t-call="akademik.session_report_document"/>
+                </t>
+            </t>
+        </template>
+
+        <template id="session_report_document">
+            <t t-call="report.external_layout">
+                <!--<t t-set="doc" t-value="doc.with_context({'lang':doc.pengajar_id.lang})" />-->
+                <div class="page">
+                        <div class="oe_structure"/>
+                            <h2>
+                                SESSION: <span t-field="doc.nama"/>
+                            </h2>
+                            <table class="table table-condensed">
+                                <tr>
+                                    <td>Kursus</td>
+                                    <td><span t-field="doc.kursus_id"/> </td>
+
+                                    <td>Pengajar</td>
+                                    <td><span t-field="doc.pengajar_id"/> </td>
+                                </tr>
+                                <tr>
+                                    <td>Tanggal Mulai</td>
+                                    <td><span t-field="doc.tanggal_mulai"/> </td>
+                                    <td>Durasi</td>
+                                    <td><span t-field="doc.durasi"/> </td>
+
+                                </tr>
+                                <tr>
+                                    <td>Kapasitas</td>
+                                    <td><span t-field="doc.kapasitas"/> </td>
+                                    <td>Kapasitas Terpakai</td>
+                                    <td><span t-field="doc.kapasitas_terpakai"/> </td>
+                                </tr>
+
+                            </table>
+
+                            <table class="table table-condensed">
+                                <thead>
+                                    <tr>
+                                        <th>No</th>
+                                        <th>Peserta</th>
+                                        <th>Tanda Tangan</th>
+                                        <th> Nomor HP</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr t-foreach="doc.peserta_id" t-as="l">
+                                        <td><span t-field="l.nama"/> </td>
+                                        <td><span t-field="l.partner_id"/> </td>
+                                        <td> . . . . . . . . .</td>
+                                        <td> . . . . . . . . .</td>
+
+                                    </tr>
+                                </tbody>
+                            </table>
+                 </div>
+
+            </t>
+        </template>
+
+    </data>
+</odoo>

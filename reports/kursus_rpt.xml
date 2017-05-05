@@ -1,0 +1,85 @@
+<odoo>
+    <data>
+        <!--Buat devenisi menu report-->
+        <report
+            id="report_kursus_menu"
+            string="Kursus"
+            model="akademik.kursus"
+            report_type="qweb-html"
+            file="akademik.kursus"
+            name="akademik.kursus_report"/>
+
+        <!--Populasikan data akademik.session-->
+        <template id="kursus_report">
+            <t t-call="report.html_container"> <!-- panggil report stadard odo yaitu header dan footer -->
+                <t t-foreach="docs" t-as="doc">
+                    <t t-call="akademik.kursus_report_document"/>
+                </t>
+            </t>
+        </template>
+
+        <template id="kursus_report_document">
+            <t t-call="report.external_layout">
+                <!--<t t-set="doc" t-value="doc.with_context({'lang':doc.pengajar_id.lang})" />-->
+                <div class="page">
+                        <div class="oe_structure"/>
+                            <h2>
+                                Nama Kursus: <span t-field="doc.nama"/>
+                            </h2>
+                            <table class="table table-condensed">
+                                <tr>
+                                    <td>Keterangan</td>
+                                    <td> <a t-field="doc.keterangan" /> </td>
+
+                                </tr>
+                                <tr>
+                                    <td>Penanggungjawab</td>
+                                    <td><a t-field="doc.penanggungjawab_id"/> </td>
+
+                                </tr>
+
+                            </table>
+
+                            <table class="table table-condensed">
+                                <thead>
+                                    <tr>
+                                        <th>Nama Session</th>
+                                        <th>kursus_id</th>
+                                        <th>Pengajar</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr t-foreach="doc.session_id" t-as="l">
+                                        <td><span t-field="l.nama"/> </td>
+                                        <td><span t-field="l.kursus_id"/> </td>
+                                        <td> <span t-field="l.pengajar_id"/></td>
+
+                                    </tr>
+                                </tbody>
+                            </table>
+
+
+                            <!--<table class="table table-condensed">-->
+                                <!--<thead>-->
+                                    <!--<tr>-->
+                                        <!--<th>Nama</th>-->
+                                        <!--<th>Alamat</th>-->
+                                        <!--<th>Orang Tua</th>-->
+                                    <!--</tr>-->
+                                <!--</thead>-->
+                                <!--<tbody>-->
+                                    <!--<tr t-foreach="doc.session_id.peserta_id" t-as="l">-->
+                                        <!--<td><span t-field="l.name"/> </td>-->
+                                        <!--<td><span t-field="l.street"/> </td>-->
+                                        <!--<td> <span t-field="l.nama_ortu"/></td>-->
+
+                                    <!--</tr>-->
+                                <!--</tbody>-->
+                            <!--</table>-->
+                 </div>
+
+            </t>
+        </template>
+
+    </data>
+</odoo>

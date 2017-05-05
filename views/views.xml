@@ -1,0 +1,147 @@
+<odoo>
+  <data>
+    <!-- explicit list view definition -->
+    <!--
+    <record model="ir.ui.view" id="akademik.list">
+      <field name="name">akademik list</field>
+      <field name="model">akademik.akademik</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name"/>
+          <field name="value"/>
+          <field name="value2"/>
+        </tree>
+      </field>
+    </record>
+    -->
+
+    <!-- actions opening views on models -->
+    <!--
+    <record model="ir.actions.act_window" id="akademik.action_window">
+      <field name="name">akademik window</field>
+      <field name="res_model">akademik.akademik</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+    -->
+
+    <!-- server action to the one above -->
+    <!--
+    <record model="ir.actions.server" id="akademik.action_server">
+      <field name="name">akademik server</field>
+      <field name="model_id" ref="model_akademik_akademik"/>
+      <field name="code">
+        action = {
+          "type": "ir.actions.act_window",
+          "view_mode": "tree,form",
+          "res_model": self._name,
+        }
+      </field>
+    </record>
+    -->
+
+    <!-- Top menu item -->
+    <!--
+    <menuitem name="akademik" id="akademik.menu_root"/>
+    -->
+    <!-- menu categories -->
+    <!--
+    <menuitem name="Menu 1" id="akademik.menu_1" parent="akademik.menu_root"/>
+    <menuitem name="Menu 2" id="akademik.menu_2" parent="akademik.menu_root"/>
+    -->
+    <!-- actions -->
+    <!--
+    <menuitem name="List" id="akademik.menu_1_list" parent="akademik.menu_1"
+              action="akademik.action_window"/>
+    <menuitem name="Server to list" id="akademik" parent="akademik.menu_2"
+              action="akademik.action_server"/>
+    -->
+
+
+      <!--Action view untuk model kursus-->
+
+    <record model="ir.actions.act_window" id="akademik.kursus_action">
+        <field name="name">Daftar Kursus</field>
+        <field name="res_model">akademik.kursus</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">Data masih kosong, klik untuk buat data baru</p>
+        </field>
+    </record>
+
+      <!--Action view untuk model session-->
+
+    <record model="ir.actions.act_window" id="akademik.session_action">
+        <field name="name">Daftar Session</field>
+        <field name="res_model">akademik.session</field>
+        <field name="view_mode">tree,form,kanban,calendar,graph</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">Data masih kosong, klik untuk buat data baru</p>
+        </field>
+
+    </record>
+
+      <!--Action untuk model peserta-->
+
+    <record model="ir.actions.act_window" id="akademik.peserta_action">
+        <field name="name">Pendaftaran Peserta</field>
+        <field name="res_model">akademik.peserta</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">Data masih kosong, klik untuk buat data baru</p>
+        </field>
+
+    </record>
+
+      <!--Action untuk model res.partner dengan filter default pengajar-->
+      <record model="ir.actions.act_window" id="akademik.pengajar_action">
+          <field name="name">Staf Pengajar</field>
+          <field name="res_model">res.partner</field>
+          <field name="view_mode">tree,form</field>
+          <field name="context">{"search_default_pengajar":1}</field>
+          <!--<field name="search_view_id" ref="base.view_res_partner_filter"/>-->
+          <field name="help" type="html">
+              <p class="oe_view_nocontent_create">Klik untuk menambah</p>
+          </field>
+      </record>
+
+      <record model="ir.actions.act_window" id="akademik.peserta_inh_action">
+          <field name="name">Peserta Kursus</field>
+          <field name="res_model">res.partner</field>
+          <field name="view_mode">tree,form</field>
+          <field name="context">{"search_default_peserta":1}</field>
+          <field name="help"    type="html">
+              <p class="oe_view_nocontent_create">Klik untuk menambah</p>
+          </field>
+      </record>
+
+      <!--Action untuk model res.partner dengan filter default peserta (selain pengajar)-->
+
+    <menuitem name="Akademik"
+              id = "akademik.menu_utama"/>
+    <menuitem name="Sis Akademik"
+              id="akademik.menu_akademik"
+              parent="akademik.menu_utama"/>
+
+    <menuitem name="Daftar Kursus"
+              id="akademik.menu_kursus"
+              parent="akademik.menu_akademik"
+              action="akademik.kursus_action"/>
+    <menuitem name="Daftar Session"
+              id="akademik.menu_session"
+              parent="akademik.menu_akademik"
+              action="akademik.session_action"/>
+    <menuitem name="Pendaftaran Peserta"
+              id="akademik.menu_peserta"
+              parent="akademik.menu_akademik"
+              action="akademik.peserta_action"/>
+    <menuitem name="Pengajar"
+              id="akademik.menu_pengajar"
+              parent="akademik.menu_akademik"
+              action="akademik.pengajar_action"/>
+    <menuitem name="Peserta"
+              id="akademik.menu_peserta_inherit"
+              parent="akademik.menu_akademik"
+              action="akademik.peserta_inh_action"/>
+
+  </data>
+</odoo>

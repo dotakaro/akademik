@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <!-- xml untuk menambahkan field pengajar pada form partner -->
+        <record model="ir.ui.view" id="modif_res_parner_view">
+            <field name="name">akademik.res.partner</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"></field>
+            <field name="arch" type="xml">
+                <field name="website" position="after">
+                    <field name="is_pengajar"/>
+                </field>
+
+
+            <field name="website" position="before">
+                    <field name="nama_ortu"/>
+                </field>
+
+            </field>
+        </record>
+
+        <!--Searcrh view untuk pengajar-->
+
+        <record model="ir.ui.view" id="pengajar_search_view">
+            <field name="name">res.partner.search</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_res_partner_filter"/>
+            <field name="arch" type="xml">
+                <search string="Search Partner">
+                    <filter name="pengajar" string="Pengajar" domain ="[('is_pengajar','=',True)]"/>
+                </search>
+            </field>
+        </record>
+
+    </data>
+</odoo>

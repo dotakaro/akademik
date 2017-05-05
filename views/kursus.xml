@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <!--tree view untuk model akademik.kursus-->
+        <record model="ir.ui.view" id="kursus_tree_view">
+            <field name="name">akademik.kursus.tree</field>
+            <field name="model">akademik.kursus</field>
+            <field name="arch" type="xml">
+                <tree string="Daftar Kursu">
+                    <field name="nama"/>
+                    <field name="keterangan"/>
+                    <field name="penanggungjawab_id"/>
+                    <field name="session_id"/>
+                </tree>
+            </field>
+        </record>
+        <!--Form view untuk model akademik.kursus-->
+        <record model="ir.ui.view" id="kursus_form_view">
+            <field name="name">akademik.kursus.form</field>
+            <field name="model">akademik.kursus</field>
+            <field name="arch" type="xml">
+                <form string="Daftar Kursus">
+                    <sheet>
+                        <group>
+                            <field name="nama"/>
+                            <field name="keterangan"/>
+                            <field name="penanggungjawab_id"/>
+                        </group>
+                        <!--Untuk membuat tampilan dalam bentuk tabular page-->
+                        <notebook>
+                            <page string="Daftar Session">
+                                 <field name="session_id"/>
+                            </page>
+
+                        </notebook>
+
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+         <!--Search view untuk model akademik.kursus-->
+        <record model="ir.ui.view" id="kurusu_search_view">
+            <field name="name">akademik.kurusu.search</field>
+            <field name="model">akademik.kursus</field>
+            <field name="arch" type="xml">
+                <search string="Cari Kursus">
+
+                </search>
+            </field>
+        </record>
+
+    </data>
+</odoo>

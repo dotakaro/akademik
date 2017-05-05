@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <!--tree view untuk model akademik.session-->
+        <record model="ir.ui.view" id="session_tree_view">
+            <field name="name">akademik.session.tree</field>
+            <field name="model">akademik.session</field>
+            <field name="arch" type="xml">
+                <tree string="Daftar Session"
+                    colors="red: kapasitas_terpakai &gt;= 50; green: kapasitas_terpakai &lt; 50">
+                    <field name="nama"/>
+                    <field name="keterangan"/>
+                    <field name="kursus_id"/>
+                    <field name="pengajar_id"/>
+                    <field name="tanggal_mulai"/>
+                    <field name="durasi"/>
+                    <field name="kapasitas"/>
+                    <field name="peserta_id"/>
+                    <field name="kapasitas_terpakai" string="Kapasitas Terisi (%)" widget="progressbar"/>
+                </tree>
+            </field>
+        </record>
+
+        <!--form view untuk model akademik.session-->
+        <record model="ir.ui.view" id="session_form_view">
+            <field name="name">akademik.session.form</field>
+            <field name="model">akademik.session</field>
+            <field name="arch" type="xml">
+                <form string="Daftar Session">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="nama"/>
+                                <field name="keterangan"/>
+                                <field name="kursus_id"/>
+                                <!--<field name="pengajar_id" domain="[('is_pengajar','=',True)]"/>-->
+                                <field name="pengajar_id" domain="['|',('is_pengajar','=',True),('function','=like','Pelatih')]"/>
+                            </group>
+                            <group>
+                                <field name="tanggal_mulai"/>
+                                <field name="durasi"/>
+                                <field name="kapasitas"/>
+                                <field name="foto" widget="image" class="oe_avatar"/>
+                                <field name="kapasitas_terpakai" string="Kapasitas Terisi (%)" widget="progressbar"/>
+                            </group>
+                        </group>
+                            <notebook>
+                                <page string="Daftar Peserta">
+                                    <field name="peserta_id" />
+                                </page>
+                            </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+<!--Search view untuk model akademik.session-->
+        <record model="ir.ui.view" id="akademik.session_search_view">
+            <field name="name">akademik.session.search</field>
+            <field name="model">akademik.session</field>
+            <field name="arch" type="xml">
+                <search string="Search Session">
+                    <filter name="php_search"
+                            string="Kurusu PHP"
+                            domain="[('kursus_id','=','PHP')]"/>
+                    <filter name="java_search"
+                            string="Kursus Java"
+                            domain="[('kursus_id','=ilike','JAVA')]"/>
+                    <filter name="kapasitas_less_10"
+                            string="Kapasitas less 10"
+                            domain ="[('kapasitas','&lt;',10)]"/>
+                </search>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="akademik.session_kanban_view">
+            <field name="name">akademik.session.kanban</field>
+            <field name="model">akademik.session</field>
+            <field name="arch" type="xml">
+                <kanban default_group_by="kursus_id" class="o_kanban_small_column">
+
+                    <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_vignette" >
+                                <a type="open">
+                                    <img t-att-src="kanban_image('akademik.session', 'foto',
+                                                    record.id.value)" class="o_kanban_image"/>
+                                </a>
+                        </div>
+                        <div>
+                            <div>
+                                   Pengajar : <field name="pengajar_id"/>
+                            </div>
+                           <div>
+                                   Session :<field name="nama"/>
+                            </div>
+                            <div>
+                                   Kapasitas : <field name="kapasitas"/>
+                            </div>
+
+                        </div>
+                    </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+
+        <!--view untuk calendar model akademik.session-->
+        <record model="ir.ui.view" id="akademik.session_calendar">
+            <field name="name">akademik.session.calendar</field>
+            <field name="model">akademik.session</field>
+            <field name="arch" type="xml">
+                <calendar string="Session Calendar" date_start="tanggal_mulai" color="kursus_id">
+                    <field name="nama"/>
+                </calendar>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="akademik.session_graph">
+            <field name="name">akademik.session.graph</field>
+            <field name="model">akademik.session</field>
+            <field name="arch" type="xml">
+                <graph string="Session Graph" type="pie">
+                    <field name="nama"/>
+                    <field name="kapasitas" operator="+"/>
+                </graph>
+            </field>
+        </record>
+
+
+
+    </data>
+</odoo>

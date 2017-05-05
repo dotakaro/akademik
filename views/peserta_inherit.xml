@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="akademik.peserta_inherit">
+            <field name="name">akademik.peserta_inherit.search</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_res_partner_filter"/>
+            <field name="arch" type="xml">
+                <search string="Search Partner">
+                    <filter name="peserta" string="Peserta" domain="[('is_pengajar','=',False)]"/>
+                </search>
+            </field>
+        </record>
+    </data>
+</odoo>

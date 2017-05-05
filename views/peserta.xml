@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <!--tree view untuk model akademik.peserta-->
+        <record model="ir.ui.view" id="peserta_tree_view">
+            <field name="name">akademik.peserta.tree</field>
+            <field name="model">akademik.peserta</field>
+            <field name="arch" type="xml">
+                <tree string="Daftar Peserta">
+                    <field name="nama"/>
+                    <field name="session_id"/>
+                    <field name="partner_id"/>
+                </tree>
+            </field>
+
+        </record>
+
+        <!--form view untuk model akademik.peserta-->
+        <record model="ir.ui.view" id="peserta_form_view">
+            <field name="name">akademik.peserta.form</field>
+            <field name="model">akademik.peserta</field>
+            <field name="arch" type="xml">
+                <form string="Pendaftaran Peserta">
+                    <sheet>
+                        <group>
+                            <field name="nama" string="ID Peserta"/>
+                            <field name="session_id"/>
+                            <field name="partner_id" domain="[('is_pengajar','=',False)]"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+
+    </data>
+</odoo>
